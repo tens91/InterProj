@@ -1,0 +1,22 @@
+<div class="content">
+    <button ng-click="order='name'">Order by name</button>
+    <button ng-click="order='colour'">Order by colour</button>
+    <input type="text" ng-model="search" placeholder="Search for an item"/>
+    <ul id="item-list">
+      <li ng-repeat="item in items | orderBy: order | filter: search" ng-show="item.available">
+
+        <h3>{{item.name}} - {{item.price | currency: '€'}}</h3>
+        <div class="remove" ng-click="removeItem(item)">x</div>
+        <span class="belt" style="background: {{item.colour}}">{{item.colour}} colour</span>
+
+      </li>
+    </ul>
+    <form ng-submit="addItem()">
+      <input type="text" placeholder="name" ng-model="newitem.name" />
+      <input type="text" placeholder="colour" ng-model="newitem.colour" />
+      <input type="text" placeholder="price" ng-model="newitem.price" />
+      <input type="submit" value="Add Item" />
+    </form>
+
+    <button ng-click="removeAll()"> Remove all items </button>
+</div>

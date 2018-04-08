@@ -1,0 +1,15 @@
+<div class="content">
+  <form name="loginForm" novalidate>
+    <input type="text" placeholder="name" name="name" ng-model="login.name" ng-required=true />
+    <div ng-show="loginForm.name.$touched && loginForm.name.$invalid">
+      <small style="color: red; display: block; text-align:center;">Enter a valid Name</small>
+    </div>
+
+    <input type="email" placeholder="Email" name="email" ng-model="login.email" ng-required=true />
+    <div ng-show="loginForm.email.$touched && loginForm.email.$invalid">
+      <small style="color: red; display: block; text-align:center;">Enter a valid Email</small>
+    </div>
+    <textarea placeholder="Your Message" name="message" ng-model="login.message" ng-required=true ></textarea>
+    <input type="submit" value="Send" ng-disabled="loginForm.$invalid" />
+  </form>
+</div>
