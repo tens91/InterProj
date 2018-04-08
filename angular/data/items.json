@@ -1,0 +1,26 @@
+[
+  {
+  "name":"Ana",
+  "colour":"Blue",
+  "price":10,
+  "available":true
+  },
+  {
+  "name":"Tony",
+  "colour":"Orange",
+  "price":33,
+  "available":true
+  },
+  {
+  "name":"Pat",
+  "colour":"Green",
+  "price":12,
+  "available":true
+  },
+  {
+  "name":"Beto",
+  "colour":"Black",
+  "price":30,
+  "available":true
+  }
+]
