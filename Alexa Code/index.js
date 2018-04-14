@@ -4,7 +4,7 @@ var Alexa = require("alexa-sdk");
 
 var handlers = {
   "HelloIntent": function () {
-    this.response.speak("Alright Patrick, yeah"); 
+    this.response.speak("Hi Patrick, How are you? Busy day in work?"); 
     this.emit(':responseReady');
   },
    'LaunchRequest': function() {
@@ -12,18 +12,29 @@ var handlers = {
         .listen("Is there anything to go on your shopping list?");
     this.emit(':responseReady');
   },
+    "AddItemIntent": function(){
+      const { slots } = this.event.request.intent;
+      
+      if (!slots.listItem.value) {
+      const slotToElicit = 'listItem';
+      const speechOutput = 'What would you like me to add to your list?';
+      return this.emit(':elicitSlot', slotToElicit, speechOutput);
+    }
+    else if (slots.listItem.confirmationStatus !== 'CONFIRMED') {
 
+      if (slots.listItem.confirmationStatus !== 'DENIED') {
+        // slot status: unconfirmed
+        const slotToConfirm = 'listItem';
+        const speechOutput = `Add ${slots.listItem.value} to you shopping list, correct?`;
+        const repromptSpeech = speechOutput;
+        return this.emit(':confirmSlot', slotToConfirm, speechOutput, repromptSpeech);
+      }
+    }
+    }
 };
 
 exports.handler = function(event, context, callback){
   var alexa = Alexa.handler(event, context);
-    alexa.registerHandlers(handlers);
-    alexa.execute();
-};
-
-exports.handler = function (event, context, callback) {
-    const alexa = Alexa.handler(event, context, callback);
-    alexa.APP_ID = APP_ID;
     alexa.registerHandlers(handlers);
     alexa.execute();
 };
