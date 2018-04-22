@@ -12,26 +12,27 @@ var handlers = {
         .listen("Is there anything to go on your shopping list?");
     this.emit(':responseReady');
   },
-    "AddItemIntent": function(){
-      const { slots } = this.event.request.intent;
-      
-      if (!slots.listItem.value) {
-      const slotToElicit = 'listItem';
-      const speechOutput = 'What would you like me to add to your list?';
-      return this.emit(':elicitSlot', slotToElicit, speechOutput);
-    }
-    else if (slots.listItem.confirmationStatus !== 'CONFIRMED') {
+   'AMAZON.StopIntent': function() {
+      this.response.speak('Ok, well, I\'m here if you need me.');
+      this.emit(':responseReady');
+  },
 
-      if (slots.listItem.confirmationStatus !== 'DENIED') {
-        // slot status: unconfirmed
-        const slotToConfirm = 'listItem';
-        const speechOutput = `Add ${slots.listItem.value} to you shopping list, correct?`;
-        const repromptSpeech = speechOutput;
-        return this.emit(':confirmSlot', slotToConfirm, speechOutput, repromptSpeech);
+   'AMAZON.AddAction<object@Event>': function() {
+      this.response.speak('No problem, is there anything else?')
+      this.emit(':responseReady');
+   },
+
+  // Cancel
+   'AMAZON.CancelIntent': function() {
+      this.response.speak('Ok, well, I\'m here if you need me.');
+      this.emit(':responseReady');
+  },
+  //Repeat
+   'AMAZON.RepeatIntent': function() {
+      this.response.speak('No problem');
+      this.emit(':responseReady');
+   }
       }
-    }
-    }
-};
 
 exports.handler = function(event, context, callback){
   var alexa = Alexa.handler(event, context);
